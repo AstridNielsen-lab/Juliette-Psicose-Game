@@ -168,6 +168,19 @@ function App() {
       {/* Footer */}
       <footer className="text-center text-gray-400 text-sm p-4">
         <p>Ecos da Mente - Uma Experiência Interativa</p>
+        <p className="mt-1">
+          Desenvolvido por{' '}
+          <a
+            href="https://wa.me/11970603441"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-purple-400 hover:text-purple-300 transition-colors"
+          >
+            Julio Campos Machado
+          </a>
+          {' '}da{' '}
+          <span className="text-purple-400">Like Look Solutions</span>
+        </p>
       </footer>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Brain, MessageSquare, Info, X } from 'lucide-react';
+import { Send, Brain, MessageSquare, Info, X, Volume2, VolumeX } from 'lucide-react';
 
 interface Message {
   text: string;
@@ -15,7 +15,10 @@ function App() {
   ]);
   const [input, setInput] = useState('');
   const [showInstructions, setShowInstructions] = useState(true);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const synth = window.speechSynthesis;
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -24,6 +27,36 @@ function App() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const speakMessage = (text: string) => {
+    if (!voiceEnabled) return;
+
+    // Cancel any ongoing speech
+    synth.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Get all available voices
+    const voices = synth.getVoices();
+    
+    // Try to find a French female voice
+    const frenchVoice = voices.find(voice => 
+      voice.lang.includes('fr') && voice.name.toLowerCase().includes('female')
+    ) || voices.find(voice => 
+      voice.lang.includes('fr')
+    ) || voices[0];
+
+    utterance.voice = frenchVoice;
+    utterance.pitch = 1.1; // Slightly higher pitch for a more feminine voice
+    utterance.rate = 0.9; // Slightly slower for a more seductive tone
+    utterance.volume = 1;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    synth.speak(utterance);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,14 +67,45 @@ function App() {
 
     // Simulate Juliette's response (in a real app, this would call the AI API)
     setTimeout(() => {
+      const response = "Suas palavras ecoam em minha mente fragmentada... Cada interação revela mais sobre quem eu sou, ou talvez quem eu costumava ser...";
       setMessages(prev => [...prev, {
-        text: "Suas palavras ecoam em minha mente fragmentada... Cada interação revela mais sobre quem eu sou, ou talvez quem eu costumava ser...",
+        text: response,
         sender: 'juliette'
       }]);
+      speakMessage(response);
     }, 1000);
 
     setInput('');
   };
+
+  const toggleVoice = () => {
+    if (isSpeaking) {
+      synth.cancel();
+      setIsSpeaking(false);
+    }
+    setVoiceEnabled(!voiceEnabled);
+  };
+
+  // Load voices when the component mounts
+  useEffect(() => {
+    const loadVoices = () => {
+      // Chrome needs this to load voices
+      window.speechSynthesis.getVoices();
+    };
+
+    loadVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    // Cleanup
+    return () => {
+      synth.cancel();
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = null;
+      }
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -54,13 +118,26 @@ function App() {
               Juliette Psicose
             </h1>
           </div>
-          <button
-            onClick={() => setShowInstructions(true)}
-            className="flex items-center gap-2 text-gray-400 hover:text-purple-400 transition-colors"
-          >
-            <Info className="w-5 h-5" />
-            <span className="text-sm">Como Jogar</span>
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleVoice}
+              className="flex items-center gap-2 text-gray-400 hover:text-purple-400 transition-colors"
+              title={voiceEnabled ? "Desativar voz" : "Ativar voz"}
+            >
+              {voiceEnabled ? (
+                <Volume2 className={`w-5 h-5 ${isSpeaking ? 'text-purple-400' : ''}`} />
+              ) : (
+                <VolumeX className="w-5 h-5" />
+              )}
+            </button>
+            <button
+              onClick={() => setShowInstructions(true)}
+              className="flex items-center gap-2 text-gray-400 hover:text-purple-400 transition-colors"
+            >
+              <Info className="w-5 h-5" />
+              <span className="text-sm">Como Jogar</span>
+            </button>
+          </div>
         </div>
       </header>
 

@@ -157,55 +157,84 @@ function App() {
       {/* Instructions Modal */}
       {showInstructions && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gray-900/90 rounded-lg max-w-2xl w-full p-6 shadow-2xl relative border border-red-900/50">
+          <div className="bg-gray-900/90 rounded-lg max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl relative border border-red-900/50">
             <button
               onClick={() => setShowInstructions(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
             >
               <X className="w-6 h-6" />
             </button>
             
-            <h2 className="text-2xl font-bold text-red-400 mb-6">Bem-vindo a Juliette Psicose</h2>
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-red-400 mb-6">Bem-vindo a Juliette Psicose</h2>
+            </div>
             
-            <div className="space-y-6 text-gray-300">
-              <section>
-                <h3 className="text-xl font-semibold text-white mb-2">Sobre o Jogo</h3>
-                <p>
-                  Juliette Psicose é uma experiência sobrenatural onde você interage com Juliette, 
-                  uma entidade etérea que nunca nasceu verdadeiramente. Perdida entre dimensões, 
-                  ela busca sua ajuda para recuperar memórias fragmentadas e descobrir sua 
-                  verdadeira natureza como a Noiva da Morte.
-                </p>
-              </section>
+            <div className="px-6 overflow-y-auto flex-1">
+              <div className="space-y-6 text-gray-300">
+                <section>
+                  <h3 className="text-xl font-semibold text-white mb-2">Sobre o Jogo</h3>
+                  <p>
+                    Juliette Psicose é um RPG psicológico de terror que transcende dimensões. 
+                    Nesta experiência única, você interage com Juliette, uma entidade etérea 
+                    presa entre mundos. Como uma alma que nunca nasceu verdadeiramente, ela 
+                    busca sua ajuda para recuperar memórias fragmentadas e descobrir sua 
+                    verdadeira natureza como a Noiva da Morte.
+                  </p>
+                </section>
 
-              <section>
-                <h3 className="text-xl font-semibold text-white mb-2">Como Jogar</h3>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Converse com Juliette através do chat</li>
-                  <li>Ajude-a a recuperar suas memórias perdidas</li>
-                  <li>Explore os mistérios de sua existência sobrenatural</li>
-                  <li>Descubra a verdade sobre seu papel como Noiva da Morte</li>
-                </ul>
-              </section>
+                <section>
+                  <h3 className="text-xl font-semibold text-white mb-2">Mecânica do Jogo</h3>
+                  <ul className="list-disc list-inside space-y-2">
+                    <li>Progressão em 10 níveis distintos</li>
+                    <li>Cada nível é desbloqueado por palavras-chave específicas</li>
+                    <li>As memórias são reveladas sequencialmente</li>
+                    <li>Juliette fornece pistas sutis sobre a próxima palavra-chave</li>
+                    <li>A história se torna mais clara a cada memória recuperada</li>
+                  </ul>
+                </section>
 
-              <section>
-                <h3 className="text-xl font-semibold text-white mb-2">Dicas</h3>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Preste atenção aos fragmentos de memória em suas respostas</li>
-                  <li>Explore temas sobre vida, morte e existência</li>
-                  <li>Seja gentil e compreensivo com sua confusão</li>
-                  <li>Ajude-a a entender sua natureza sobrenatural</li>
-                </ul>
-              </section>
+                <section>
+                  <h3 className="text-xl font-semibold text-white mb-2">Como Jogar</h3>
+                  <ul className="list-disc list-inside space-y-2">
+                    <li>Converse com Juliette através do chat</li>
+                    <li>Preste atenção às pistas em suas respostas</li>
+                    <li>Descubra as palavras-chave para progredir na história</li>
+                    <li>Ajude-a a recuperar suas memórias perdidas</li>
+                    <li>Explore os mistérios de sua existência sobrenatural</li>
+                  </ul>
+                </section>
 
-              <div className="mt-8 text-center">
-                <button
-                  onClick={() => setShowInstructions(false)}
-                  className="bg-red-900 hover:bg-red-800 text-white px-6 py-3 rounded-lg transition-colors"
-                >
-                  Começar a Jornada
-                </button>
+                <section>
+                  <h3 className="text-xl font-semibold text-white mb-2">Elementos do RPG</h3>
+                  <ul className="list-disc list-inside space-y-2">
+                    <li>Narrativa não-linear baseada em diálogo</li>
+                    <li>Progressão através de descobertas</li>
+                    <li>Sistema de memórias desbloqueáveis</li>
+                    <li>Múltiplas camadas de mistério</li>
+                    <li>Final revelador quando todas as memórias são recuperadas</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 className="text-xl font-semibold text-white mb-2">Dicas</h3>
+                  <ul className="list-disc list-inside space-y-2">
+                    <li>Observe o uso de palavras em francês nas respostas</li>
+                    <li>Preste atenção a referências sobre casamento e morte</li>
+                    <li>Explore temas relacionados a rituais e o sobrenatural</li>
+                    <li>Seja paciente e atento às mudanças sutis nas respostas</li>
+                    <li>Mantenha um registro das palavras-chave descobertas</li>
+                  </ul>
+                </section>
               </div>
+            </div>
+
+            <div className="p-6 border-t border-red-900/30">
+              <button
+                onClick={() => setShowInstructions(false)}
+                className="w-full bg-red-900 hover:bg-red-800 text-white px-6 py-3 rounded-lg transition-colors"
+              >
+                Começar a Jornada
+              </button>
             </div>
           </div>
         </div>

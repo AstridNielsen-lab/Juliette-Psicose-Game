@@ -20,12 +20,6 @@
 - Explore temas de rituais e elementos sobrenaturais.
 - Mantenha um registro das palavras-chave descobertas para facilitar o progresso.
 
-## 🛠️ Tecnologias Utilizadas
-- [Linguagem de Programação/Framework] (Ex.: JavaScript/React)
-- [Ferramentas de Backend] (Ex.: Node.js)
-- [Banco de Dados] (Ex.: MongoDB)
-- Outras tecnologias específicas (adicione conforme necessário).
-
 ## 🌐 Acesse o Jogo
 Experimente o jogo diretamente [aqui](https://juliette-psicose-game.vercel.app/)!
 

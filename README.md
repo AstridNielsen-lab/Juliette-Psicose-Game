@@ -30,7 +30,7 @@ Juliette está esperando por sua ajuda:
 Digite sua mensagem no chat para embarcar nesta aventura sobrenatural.
 
 ## 📜 Licença
-Este projeto é distribuído sob licença 
+Este projeto é distribuído sob licença. 
 
 ## 👤 Desenvolvedores
 - Desenvolvido por: **Julio Campos Machado**  
